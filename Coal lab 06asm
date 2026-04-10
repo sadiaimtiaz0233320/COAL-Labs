@@ -1,0 +1,23 @@
+.model small
+.stack 100h
+.data
+.code
+main proc
+    mov ah, 1          ; DOS function to read character from keyboard
+    int 21h            ; Interrupt - first input in AL
+    mov bl, al         ; Store first input in BL
+    
+    mov ah, 1          ; DOS function to read second character
+    int 21h            ; Interrupt - second input in AL
+    
+    sub bl, al         ; BL = BL - AL (first - second)
+    add bl, 48         ; Convert to ASCII ('0' = 48)
+    
+    mov dl, bl         ; Move result to DL for display
+    mov ah, 2          ; DOS function to display character
+    int 21h            ; Interrupt - display result
+    
+    mov ah, 4ch        ; DOS function to terminate program
+    int 21h            ; Interrupt - exit program
+main endp
+end main
